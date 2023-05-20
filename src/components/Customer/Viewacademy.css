@@ -1,0 +1,47 @@
+.Adminacademy {
+  text-align: center;
+}
+
+.Adminacademy-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .Adminacademy-logo {
+    animation: Adminacademy-logo-spin infinite 20s linear;
+  }
+}
+
+.Adminacademy-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.Adminacademy-link {
+  color: #61dafb;
+}
+
+@keyframes Adminacademy-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+body{
+  background-color:grey;
+}
+
+
+.container{
+  background-color: purple;
+  max-width: 100%;
+}
