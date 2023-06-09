@@ -13,7 +13,7 @@ const con = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "",
-    database:"BoxingAcademy",
+    database:"project",
 })
 
 con.connect(function(err) {
@@ -25,7 +25,7 @@ con.connect(function(err) {
 })
 
 app.post('/login', (req, res) => {
-    const sql = 'SELECT * FROM login Where email=? AND password=?';
+    const sql = 'SELECT * FROM register Where email=? AND password=?';
     con.query(sql, [req.body.email, req.body.password], (err, result) => {
         if(err) return res.json({Status: "Error", Error: "Error in runnig query"});
         if(result.length > 0) { 
@@ -37,7 +37,7 @@ app.post('/login', (req, res) => {
 })
 
 app.post('/signup', (req, res) => {
-    const sql = "INSERT INTO login(`email`,`password`,`username`,`mobileNumber`,`userRole`) VALUES (?)";
+    const sql = "INSERT INTO register(`email`,`password`,`username`,`mobileNumber`,`userRole`) VALUES (?)";
     const values=[
         req.body.email,
         req.body.password,
@@ -51,7 +51,7 @@ app.post('/signup', (req, res) => {
         }
         return res. json(data);
     })
-})
+}) 
 
 app.post('/addacademy', (req, res) => {
     const sql = "INSERT INTO academydetails (`academyName`,`contactNumber`,`imageUrl`,`emailId`,`academyLocation`,`academyDescription`) VALUES (?)";
