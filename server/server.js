@@ -78,6 +78,72 @@ app.get('/getdetails',(req,res)=>{
 
     })
 })
+app.delete('/delete/:id',(req,res)=>{
+    const id = req.params.id;
+    const sql='DELETE FROM academydetails WHERE id = ?';
+    con.query(sql, [id], (err, result) => {
+        if(err) return res.json({Error: "delete error in sql"});
+        return res.json({Status: "Success"})
+    })
+})
+app.put('/update/:id', (req, res) => {
+    const serviceCenterID = req.params.id;
+    const {
+      editName,
+      editNumber,
+      editAddress,
+      editImageUrl,
+      editEmail,
+      editCentreDescription,
+    } = req.body;
+  
+    let sql = 'UPDATE servicecentermodel SET ';
+    let values = [];
+  
+    if (editName) {
+      sql += 'serviceCenterName = ?, ';
+      values.push(editName);
+    }
+  
+    if (editNumber) {
+      sql += 'serviceCenterPhone = ?, ';
+      values.push(editNumber);
+    }
+  
+    if (editAddress) {
+      sql += 'serviceCenterAddress = ?, ';
+      values.push(editAddress);
+    }
+  
+    if (editImageUrl) {
+      sql += 'serviceCenterImageUrl = ?, ';
+      values.push(editImageUrl);
+    }
+  
+    if (editEmail) {
+      sql += 'serviceCentermailId = ?, ';
+      values.push(editEmail);
+    }
+  
+    if (editCentreDescription) {
+      sql += 'serviceCenterDescription = ?, ';
+      values.push(editCentreDescription);
+    }
+  
+    // Remove the trailing comma and space from the SQL query
+    sql = sql.slice(0, -2);
+    sql += ' WHERE serviceCenterID = ?';
+    values.push(serviceCenterID);
+  
+    con.query(sql, values, (err, result) => {
+      if (err) {
+        console.error('Error updating service center:', err);
+        return res.json({ Status: 'Error' });
+      }
+      return res.json({ Status: 'Success' });
+    });
+  });
+
 app.listen(8081, ()=> {
     console.log("Running");
 })

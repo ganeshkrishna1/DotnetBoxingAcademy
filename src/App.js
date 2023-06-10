@@ -7,6 +7,7 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import Adminacademy from "./components/Admin/Adminacademy";
 import Viewacademy from "./components/Customer/Viewacademy";
 import Addacademy from "./components/Admin/addAcademy";
+import Editacademy from "./components/Admin/Editacademy";
 function App() {
   return (
     <BrowserRouter>
@@ -17,7 +18,7 @@ function App() {
           <Route path='/academy' element={<Adminacademy />}></Route>
           <Route path='/viewacademy' element={<Viewacademy />}></Route>
           <Route path='/addacademy' element={<Addacademy />}></Route>
-
+          <Route path='/editacademy' element={<Editacademy />}></Route>
       </Routes>
     </BrowserRouter>
   );

@@ -27,6 +27,17 @@ function Adminacademy() {
     );
     setData(filteredData);
   };
+  const handleDelete = (id) => {
+    axios.delete('http://localhost:8081/delete/'+id)
+    .then(res => {
+      if(res.data.Status === "Success") {
+        window.location.reload(true);
+      } else {
+        alert("Error")
+      }
+    })
+    .catch(err => console.log(err));
+  }
 
   return (
     <>
@@ -77,8 +88,8 @@ function Adminacademy() {
                   <img src={val.imageUrl} alt="" />
                   <h3>{val.academyName}  </h3>
                   <p className="place">Place: {val.academyLocation} </p>
-                  <button id="deleteAcademy" class="emojiButton" type="button">Delete</button>
-                  <button id="editAcademy" class="emojiButton" type="button">Edit</button>
+                  <button onClick={e => handleDelete(val.id)} id="deleteAcademy" class="deleteButton" type="button">Delete</button>
+                  <Link to='/editacademy' id="editAcademy" class="editButton" type="button">Edit</Link>
                 </div>
               );
             })
