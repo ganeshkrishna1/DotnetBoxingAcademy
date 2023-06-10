@@ -89,7 +89,7 @@ function Adminacademy() {
                   <h3>{val.academyName}  </h3>
                   <p className="place">Place: {val.academyLocation} </p>
                   <button onClick={e => handleDelete(val.id)} id="deleteAcademy" class="deleteButton" type="button">Delete</button>
-                  <Link to='/editacademy' id="editAcademy" class="editButton" type="button">Edit</Link>
+                  <Link to={`/editacademy/`+val.id} id="editAcademy" class="editButton" type="button">Edit</Link>
                 </div>
               );
             })

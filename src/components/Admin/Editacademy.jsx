@@ -1,6 +1,6 @@
 import axios from 'axios';
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react'
+import { useNavigate, useParams } from 'react-router-dom';
 import { Link, Outlet } from 'react-router-dom'
 function Editacademy() {
     const [values, setValues] = useState({
@@ -13,20 +13,35 @@ function Editacademy() {
 	})
 
     const navigate = useNavigate();
-
-	const handleInput = (event)=> {
-        setValues(prev => ({...prev,[event.target.name]: [event.target.value]}))
+    const {id} = useParams();
+	function handleInput(event) {
+        setValues(prev => ({ ...prev, [event.target.name]: [event.target.value] }));
     }
+
+    useEffect(()=> {
+		axios.get('http://localhost:8081/get/'+id)
+		.then(res => {
+			setValues({...values, academyName: res.values.Result[0].academyName,
+				contactNumber: res.values.Result[0].contactNumber,
+				imageUrl: res.values.Result[0].imageUrl,
+				emailId: res.values.Result[0].emailId,
+                academyLocation: res.values.Result[0].academyLocation,
+                academyDescription:res.values.Result[0].academyDescription
+			})
+		})
+		.catch(err =>console.log(err));
+	}, [])
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		axios.put('http://localhost:8081/editacademy', values)
+		axios.put('http://localhost:8081/update/'+id, values)
 		.then(res => {
-			navigate('/academy')
+			if(res.data.Status === "Success") {
+				navigate('/academy')
+			}
 		})
 		.catch(err => console.log(err));
-    }
-
+	}
     return(
         <div className='body'>
         <div><br/></div>
@@ -81,7 +96,7 @@ function Editacademy() {
                     onChange={handleInput}></textarea>
 				</div>
 				<div className="mb-3">
-					<button type="submit" id='addButton' className="btn btn-success w-10">Update Academy</button>
+					<button type="submit" id='updateButton' className="btn btn-success w-10">Update Academy</button>
 				</div>
 			</form>
 

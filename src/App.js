@@ -18,7 +18,7 @@ function App() {
           <Route path='/academy' element={<Adminacademy />}></Route>
           <Route path='/viewacademy' element={<Viewacademy />}></Route>
           <Route path='/addacademy' element={<Addacademy />}></Route>
-          <Route path='/editacademy' element={<Editacademy />}></Route>
+          <Route path='/editacademy/:id' element={<Editacademy />}></Route>
       </Routes>
     </BrowserRouter>
   );
