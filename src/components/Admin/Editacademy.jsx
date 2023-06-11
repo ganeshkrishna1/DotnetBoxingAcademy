@@ -30,7 +30,7 @@ function Editacademy() {
 			})
 		})
 		.catch(err =>console.log(err));
-	}, [])
+	}, [id,values])
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
@@ -72,7 +72,7 @@ function Editacademy() {
             <h2>Edit Academy</h2>
 			<form onSubmit={handleSubmit}>
 			<div className="mb-3">
-					<input type="text" className="form-control" id="editAcademyName" name="academyName" placeholder='Enter Academy name' autoComplete='off'
+					<input type="text" className="form-control" id="editAcademyName"  name="academyName" placeholder='Enter Academy name' autoComplete='off'
 					onChange={handleInput}/>
 				</div>
 				<div className="mb-3">

@@ -1,53 +1,73 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import axios from "axios";
 import "./Viewacademy.css";
-function Viewacademy() {
-  const [data,setData]=useState([])
-  const [searchQuery, setSearchQuery] = useState('');
 
-  useEffect(()=>{
-      axios.get('http://localhost:8081/getdetails')
-      .then(res=>{
-        if(res.data.Status==="Success"){
-          console.log(res.data.Result)
-          setData(res.data.Result);
-        }else(
-          alert("Error")
-        )
+function Viewacademy() {
+  const [originalData, setOriginalData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8081/getdetails")
+      .then((res) => {
+        if (res.data.Status === "Success") {
+          console.log(res.data.Result);
+          setOriginalData(res.data.Result);
+          setFilteredData(res.data.Result); // Initialize filteredData with original data
+        } else {
+          alert("Error");
+        }
       })
-      .catch(err=>console.log(err));
-  },[])
+      .catch((err) => console.log(err));
+  }, []);
 
   const handleSearch = (event) => {
     event.preventDefault();
-    // Filter the data based on the search query
-    const filteredData = data.filter(item =>
+    const filteredResults = originalData.filter((item) =>
       item.academyName.toLowerCase().includes(searchQuery.toLowerCase())
     );
-    setData(filteredData);
+    setFilteredData(filteredResults);
   };
 
   return (
     <>
-      <div className='body'>
-        <div><br/></div>
+      <div className="body">
+        <div>
+          <br />
+        </div>
         <nav className="navbar navbar-expand-lg navbar-light bg-light mx-auto">
           <div className="container">
             <a className="navbar-brand">Boxing academy</a>
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav mx-auto">
                 <li className="nav-item">
-                  <Link to="/Viewacademy" className="nav-link active" id='adminAcademy' aria-current="page">Academy</Link>
+                  <Link
+                    to="/Viewacademy"
+                    className="nav-link active"
+                    id="adminAcademy"
+                    aria-current="page"
+                  >
+                    Academy
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/Enrolledcourse" className="nav-link" id='adminCourse'>Enrolled Course</Link>
+                  <Link
+                    to="/Enrolledcourse"
+                    className="nav-link"
+                    id="adminCourse"
+                  >
+                    Enrolled Course
+                  </Link>
                 </li>
               </ul>
               <Link to="/login">
-                <a className="logout" id='logout'>Logout</a>    
+                <a className="logout" id="logout">
+                  Logout
+                </a>
               </Link>
-            </div>                
+            </div>
           </div>
           <Outlet />
         </nav>
@@ -64,15 +84,21 @@ function Viewacademy() {
               setSearchQuery(event.target.value);
             }}
           />
-          <button className="btn btn-success w-10" type="submit" onClick={handleSearch}>Search</button>
+          <button
+            className="btn btn-success w-10"
+            type="submit"
+            onClick={handleSearch}
+          >
+            Search
+          </button>
         </div>
         <div className="template_Container">
-          {data.length > 0 ? (
-            data.map((val) => {
+          {filteredData.length > 0 ? (
+            filteredData.map((val) => {
               return (
                 <div className="template" key={val.id}>
                   <img src={val.imageUrl} alt="" />
-                  <h3>{val.academyName} </h3>
+                  <h3>{val.academyName}</h3>
                   <p className="place">Place: {val.academyLocation}</p>
                 </div>
               );

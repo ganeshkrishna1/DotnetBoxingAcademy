@@ -95,20 +95,20 @@ app.delete('/delete/:id',(req,res)=>{
     })
 })
 app.put('/update/:id', (req, res) => {
-    const id = req.params.id;
-    const updatedData = req.body;
-  
-    let sql = 'UPDATE academydetails SET ? WHERE id = ?';
-  
-    con.query(sql, [updatedData, id], (err, result) => {
-      if (err) {
-        console.error('Error updating academy details', err);
-        return res.json({ Status: 'Error' });
-      }
-      return res.json({ Status: 'Success' });
-    });
+  const id = req.params.id;
+  const updatedData = req.body;
+
+  let sql = 'UPDATE academydetails SET ? WHERE id = ?';
+
+  con.query(sql, [updatedData, id], (err, result) => {
+    if (err) {
+      console.error('Error updating academy details', err);
+      return res.json({ Status: 'Error' });
+    }
+    return res.json({ Status: 'Success' });
   });
-  
+});
+
   
 
 app.listen(8081, ()=> {
