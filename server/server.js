@@ -108,7 +108,22 @@ app.put('/update/:id', (req, res) => {
     return res.json({ Status: 'Success' });
   });
 });
+app.get('/getcourses',(req,res)=>{
+    const sql="SELECT * FROM course";
+    con.query(sql,(err,result)=>{
+        if(err) return res,json({Error:"Got an error in the sql"});
+        return res.json({Status:"Success",Result:result})
 
+    })
+})
+app.delete('/deletecourse/:id',(req,res)=>{
+    const id = req.params.id;
+    const sql='DELETE FROM course WHERE id = ?';
+    con.query(sql, [id], (err, result) => {
+        if(err) return res.json({Error: "delete error in sql"});
+        return res.json({Status: "Success"})
+    })
+})
   
 
 app.listen(8081, ()=> {

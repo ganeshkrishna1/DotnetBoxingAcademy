@@ -143,3 +143,27 @@
     border: black;
     cursor: pointer;
     }
+    .templateContainer .template_Container .template1 {
+      background-color: white;
+      margin: 30px;
+      padding: 10px 20px;
+      flex-basis: calc(60% - 60px); /* Adjust the width as needed */
+    }
+    .templateContainer .template_Container .template1 .deleteCourse{
+      background-color: red;
+      padding: 10px;
+      font-size: 15px;
+      color: white;
+      border: black;
+      margin-right:5%;
+      margin-left:85%;
+      cursor: pointer;
+      }
+      .templateContainer .template_Container .template1 .editCourse {
+        background-color: green;
+        padding: 10px;
+        font-size: 15px;
+        color: white;
+        border: black;
+        cursor: pointer;
+        }
