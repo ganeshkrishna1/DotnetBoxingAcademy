@@ -9,6 +9,8 @@ import Viewacademy from "./components/Customer/Viewacademy";
 import Addacademy from "./components/Admin/addAcademy";
 import Editacademy from "./components/Admin/Editacademy";
 import Admincourse from "./components/Admin/Admincourse";
+import Addcourse from "./components/Admin/Addcourse";
+import Editcourse from "./components/Admin/Editcourse";
 function App() {
   return (
     <BrowserRouter>
@@ -20,7 +22,9 @@ function App() {
           <Route path='/viewacademy' element={<Viewacademy />}></Route>
           <Route path='/addacademy' element={<Addacademy />}></Route>
           <Route path='/admincourse' element={<Admincourse />}></Route>
+          <Route path='/addcourse' element={<Addcourse />}></Route>
           <Route path='/editacademy/:id' element={<Editacademy />}></Route>
+          <Route path='/editcourse/:id' element={<Editcourse />}></Route>
       </Routes>
     </BrowserRouter>
   );

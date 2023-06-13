@@ -13,7 +13,7 @@ const con = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "",
-    database:"project",
+    database:"internship",
 })
 
 con.connect(function(err) {
@@ -124,8 +124,44 @@ app.delete('/deletecourse/:id',(req,res)=>{
         return res.json({Status: "Success"})
     })
 })
+app.post('/addcourse', (req, res) => {
+    const sql = "INSERT INTO course (`coursename`,`courseduration`,`coursetimings`,`numberofstudents`,`coursedescription`) VALUES (?)";
+    const values=[
+        req.body.coursename,
+        req.body.courseduration,
+        req.body.coursetimings,
+        req.body.numberofstudents,
+        req.body.coursedescription
+    ]
+    con.query(sql,[values],(err,data)=> {
+        if(err) {
+            return res.json({Error:"error inside the query"});
+        }
+        return res.json(data);
+    })
+})
+app.get('/getcourse/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = "SELECT * FROM course where id = ?";
+    con.query(sql, [id], (err, result) => {
+        if(err) return res.json({Error: "Get academy error in sql"});
+        return res.json({Status: "Success", Result: result})
+    })
+})
+app.put('/updatecourse/:id', (req, res) => {
+    const id = req.params.id;
+    const updatedData = req.body;
   
-
+    let sql = 'UPDATE course SET ? WHERE id = ?';
+  
+    con.query(sql, [updatedData, id], (err, result) => {
+      if (err) {
+        console.error('Error updating academy details', err);
+        return res.json({ Status: 'Error' });
+      }
+      return res.json({ Status: 'Success' });
+    });
+  });
 app.listen(8081, ()=> {
     console.log("Running");
 })
