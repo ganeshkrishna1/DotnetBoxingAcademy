@@ -1,31 +1,32 @@
 import React, { useEffect,useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import axios from "axios";
-import "./Adminacademy.css";
+import "../Adminacademy.css";
 function Admincourse() {
-  const [data,setData]=useState([])
-  const [searchQuery, setSearchQuery] = useState('');
+  const [originalData, setOriginalData] = useState([]);
+  const [data, setFilteredData] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(()=>{
       axios.get('http://localhost:8081/getcourses')
       .then(res=>{
-        if(res.data.Status==="Success"){
-          console.log(res.data.Result)
-          setData(res.data.Result);
-        }else(
-          alert("Error")
-        )
+        if (res.data.Status === "Success") {
+          console.log(res.data.Result);
+          setOriginalData(res.data.Result);
+          setFilteredData(res.data.Result); // Initialize filteredData with original data
+        } else {
+          alert("Error");
+        }
       })
-      .catch(err=>console.log(err));
-  },[])
+      .catch((err) => console.log(err));
+  }, []);
 
   const handleSearch = (event) => {
     event.preventDefault();
-    // Filter the data based on the search query
-    const filteredData = data.filter(item =>
+    const filteredResults = originalData.filter((item) =>
       item.coursename.toLowerCase().includes(searchQuery.toLowerCase())
     );
-    setData(filteredData);
+    setFilteredData(filteredResults);
   };
   const handleDelete = (id) => {
     axios.delete('http://localhost:8081/deletecourse/'+id)

@@ -45,3 +45,26 @@ body{
   background-color: purple;
   max-width: 100%;
 }
+.templateContainer .template_ContainerEnroll {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+.templateContainer .template_ContainerEnroll .template1 {
+  background-color: rgb(209, 207, 207);
+  margin: 30px;
+  padding: 20px 20px;
+  flex-basis: calc(30% - 60px); /* Adjust the width as needed */
+}
+.templateContainer .template_ContainerEnroll .template1 .enrolledCourse {
+  background-color:red;
+  padding: 10px;
+  font-size: 15px;
+  margin-left:80%;
+  color: white;
+  border: black;
+  margin-bottom: 2%;
+  cursor: pointer;
+  }

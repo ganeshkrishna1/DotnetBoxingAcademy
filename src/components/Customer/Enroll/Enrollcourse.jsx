@@ -1,13 +1,12 @@
 import React, { useEffect,useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import axios from "axios";
-import "./Adminacademy.css";
-function Adminacademy() {
+function Enrollcourse() {
   const [data,setData]=useState([])
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(()=>{
-      axios.get('http://localhost:8081/getdetails')
+      axios.get('http://localhost:8081/getcourses')
       .then(res=>{
         if(res.data.Status==="Success"){
           console.log(res.data.Result)
@@ -18,46 +17,47 @@ function Adminacademy() {
       })
       .catch(err=>console.log(err));
   },[])
+  
 
   const handleSearch = (event) => {
     event.preventDefault();
     // Filter the data based on the search query
     const filteredData = data.filter(item =>
-      item.academyName.toLowerCase().includes(searchQuery.toLowerCase())
+      item.coursename.toLowerCase().includes(searchQuery.toLowerCase())
     );
     setData(filteredData);
   };
-  const handleDelete = (id) => {
-    axios.delete('http://localhost:8081/delete/'+id)
-    .then(res => {
-      if(res.data.Status === "Success") {
-        window.location.reload(true);
-      } else {
-        alert("Error")
-      }
-    })
-    .catch(err => console.log(err));
-  }
+
 
   return (
     <>
       <div className='body'>
         <div><br/></div>
         <nav className="navbar navbar-expand-lg navbar-light bg-light mx-auto">
-          <div className="container-fluid">
+          <div className="container">
             <a className="navbar-brand">Boxing academy</a>
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav mx-auto">
                 <li className="nav-item">
-                  <Link to="/academy" className="nav-link active" id='adminAcademy' aria-current="page">Academy</Link>
+                  <Link
+                    to="/Viewacademy"
+                    className="nav-link active"
+                    id="adminAcademy"
+                    aria-current="page"
+                  >
+                    Academy
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/Admincourse" className="nav-link" id='adminCourse'>Course</Link>
+                  <Link
+                    to="/Enrolledcourse"
+                    className="nav-link"
+                    id="adminCourse"
+                  >
+                    Enrolled Course
+                  </Link>
                 </li>
-                <li className="nav-item">
-                  <Link to="/Adminstudents" className="nav-link" id='adminStudents'>Students</Link>
-                </li>
-              </ul>
+              </ul> 
               <Link to="/login">
                 <a className="logout" id='logout'>Logout</a>    
               </Link>
@@ -70,9 +70,9 @@ function Adminacademy() {
       <div className="templateContainer">
         <div className="searchInput_Container">
           <input
-            id="searchInput"
+            id="searchCourse"
             type="text"
-            placeholder="Type here to search Academy"
+            placeholder="Type here to search Course"
             value={searchQuery}
             onChange={(event) => {
               setSearchQuery(event.target.value);
@@ -84,12 +84,13 @@ function Adminacademy() {
           {data.length > 0 ? (
             data.map((val) => {
               return (
-                <div className="template" key={val.id} id="AcademyGrid">
-                  <img src={val.imageUrl} alt="" />
-                  <h3>{val.academyName}  </h3>
-                  <p className="place">Place: {val.academyLocation} </p>
-                  <button onClick={e => handleDelete(val.id)} id="deleteAcademy" class="deleteButton" type="button">Delete</button>
-                  <Link to={`/editacademy/`+val.id} id="editAcademy" class="editButton" type="button">Edit</Link>
+                <div className="template1" key={val.id} id="CourseGrid">
+                  <h4>Course name : {val.coursename}  </h4>
+                  <h4>Course Duration : {val.courseduration}  </h4>
+                  <h4>Course Available timings : {val.coursetimings}  </h4>
+                  <h4>Number of students : {val.numberofstudents}  </h4>
+                  <h4>Course Description : {val.coursedescription}  </h4>
+                  <Link to={`/enrollform/`+val.id} id="editCourse" class="enrollCourse" type="button">Enroll course</Link>
                 </div>
               );
             })
@@ -98,13 +99,8 @@ function Adminacademy() {
           )}
         </div>
       </div>
-      <center>
-      <Link to='/addacademy' type='button' id='addacademybutton' className="btn btn-success w-10">
-      ⊕Add Academy
-      </Link>
-      </center>
     </>
   );
 }
 
-export default Adminacademy;
+export default Enrollcourse;

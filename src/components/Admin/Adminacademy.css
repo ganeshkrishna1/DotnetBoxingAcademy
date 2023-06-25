@@ -143,13 +143,14 @@
     border: black;
     cursor: pointer;
     }
+    
     .templateContainer .template_Container .template1 {
       background-color: white;
       margin: 30px;
       padding: 10px 20px;
       flex-basis: calc(60% - 60px); /* Adjust the width as needed */
     }
-    .templateContainer .template_Container .template1 .deleteCourse{
+    #deleteCourse{
       background-color: red;
       padding: 10px;
       font-size: 15px;
@@ -159,7 +160,7 @@
       margin-left:85%;
       cursor: pointer;
       }
-      .templateContainer .template_Container .template1 .editCourse {
+      #editCourse {
         background-color: green;
         padding: 10px;
         font-size: 15px;
@@ -167,3 +168,56 @@
         border: black;
         cursor: pointer;
         }
+        #enrollCourse {
+          background-color: rgb(59, 255, 59);
+          padding: 10px;
+          font-size: 15px;
+          margin-left:90%;
+          color: black;
+          border: black;
+          cursor: pointer;
+          }
+          .gridTable {
+            width: 100%;
+            border-collapse: collapse;
+          }
+          
+          .gridTable th,
+          .gridTable td {
+            padding: 8px;
+            text-align: left;
+          }
+          
+          .gridTable th {
+            background-color: #1c823a;
+            color: white;
+          }
+          
+          .gridTable tbody tr:nth-child(even) {
+            background-color: rgb(174, 171, 171);
+          }
+          
+          .gridTable tbody tr:nth-child(odd) {
+            background-color: #ffffff;
+          }
+          #adminDeleteStudent{
+            background-color: red;
+            padding: 10px;
+            font-size: 15px;
+            color: white;
+            border: black;
+            margin-right:5%;
+            cursor: pointer;
+            }
+            #adminEditStudent {
+              background-color: green;
+              padding: 10px;
+              font-size: 15px;
+              color: white;
+              margin-right: 2%;
+              border: black;
+              cursor: pointer;
+              }
+          
+
+         

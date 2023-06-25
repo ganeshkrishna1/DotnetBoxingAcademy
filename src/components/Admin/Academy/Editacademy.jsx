@@ -45,7 +45,7 @@ function Editacademy() {
     return(
         <div className='body'>
         <div><br/></div>
-        <nav className="navbar navbar-expand-lg navbar-light bg-light mx-auto">
+       <nav className="navbar navbar-expand-lg navbar-light bg-light mx-auto">
           <div className="container-fluid">
             <a className="navbar-brand">Boxing academy</a>
             <div className="collapse navbar-collapse" id="navbarSupportedContent">

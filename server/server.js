@@ -162,6 +162,79 @@ app.put('/updatecourse/:id', (req, res) => {
       return res.json({ Status: 'Success' });
     });
   });
+  app.post('/enrollform', (req, res) => {
+    const sql = "INSERT INTO students (`coursename`,`firstName`,`lastName`,`gender`,`fatherName`,`phoneNumber1`,`phoneNumber2`,`motherName`,`emailId`,`age`,`houseNo`,`streetName`,`areaName`,`pincode`,`state`,`nationality`) VALUES (?)";
+    const values=[
+        req.body.coursename,
+        req.body.firstName,
+        req.body.lastName,
+        req.body.gender,
+        req.body.fatherName,
+        req.body.phoneNumber1,
+        req.body.phoneNumber2,
+        req.body.motherName,
+        req.body.emailId,
+        req.body.age,
+        req.body.houseNo,
+        req.body.streetName,
+        req.body.areaName,
+        req.body.pincode,
+        req.body.state,
+        req.body.nationality,
+
+    ]
+    con.query(sql,[values],(err,data)=> {
+        if(err) {
+            return res.json({Error:"error inside the query"});
+        }
+        return res.json(data);
+    })
+})
+app.get('/enrolledcourse', (req, res) => {
+    const sql = "SELECT coursename,date from students";
+    con.query(sql, (err, result) => {
+        if(err) return res.json({Error: "Get academy error in sql"});
+        return res.json({Status: "Success", Result: result})
+    })
+})
+app.get('/getstudents', (req, res) => {
+    const sql = "SELECT * from students";
+    con.query(sql, (err, result) => {
+        if(err) return res.json({Error: "Get academy error in sql"});
+        return res.json({Status: "Success", Result: result})
+    })
+})
+app.get('/getstudents/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = "SELECT * FROM students where id = ?";
+    con.query(sql, [id], (err, result) => {
+        if(err) return res.json({Error: "Get academy error in sql"});
+        return res.json({Status: "Success", Result: result})
+    })
+})
+app.put('/updatestudents/:id', (req, res) => {
+    const id = req.params.id;
+    const updatedData = req.body;
+  
+    let sql = 'UPDATE students SET ? WHERE id = ?';
+  
+    con.query(sql, [updatedData, id], (err, result) => {
+      if (err) {
+        console.error('Error updating academy details', err);
+        return res.json({ Status: 'Error' });
+      }
+      return res.json({ Status: 'Success' });
+    });
+  });
+app.delete('/deletestudents/:id',(req,res)=>{
+    const id = req.params.id;
+    const sql='DELETE FROM students WHERE id = ?';
+    con.query(sql, [id], (err, result) => {
+        if(err) return res.json({Error: "delete error in sql"});
+        return res.json({Status: "Success"})
+    })
+})
+
 app.listen(8081, ()=> {
     console.log("Running");
 })

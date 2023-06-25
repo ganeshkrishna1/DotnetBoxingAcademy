@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import axios from "axios";
-import "./Viewacademy.css";
+import "../Viewacademy.css";
 
 function Viewacademy() {
   const [originalData, setOriginalData] = useState([]);
@@ -97,9 +97,11 @@ function Viewacademy() {
             filteredData.map((val) => {
               return (
                 <div className="template" key={val.id}>
-                  <img src={val.imageUrl} alt="" />
-                  <h3>{val.academyName}</h3>
-                  <p className="place">Place: {val.academyLocation}</p>
+                <Link to={'/enrollcourse'}>
+                     <img src={val.imageUrl} alt="" />
+                </Link>     
+                 <center><h3>{val.academyName}</h3></center><br></br>
+                  <h4 className="place">Place: {val.academyLocation}   ⭐⭐⭐⭐⭐</h4>
                 </div>
               );
             })
