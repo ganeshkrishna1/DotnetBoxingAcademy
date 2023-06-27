@@ -91,6 +91,7 @@ function Adminstudent() {
   </div>
         <br></br>
   {data.length > 0 ? (
+    <center>
     <table className="gridTable">
       <thead>
         <tr>
@@ -116,6 +117,7 @@ function Adminstudent() {
         ))}
       </tbody>
     </table>
+    </center>
   ) : (
     <p>No results found.</p>
   )}

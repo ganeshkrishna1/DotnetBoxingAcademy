@@ -73,6 +73,9 @@ function Addstudent() {
       <div className="d-flex justify-content-center align-items-center addpage">
         <div className="p-1 rounded w-50 border addform">
           <form onSubmit={handleSubmit}>
+          <center>
+          <h2>Add Student</h2><br></br>
+        </center>
             <div className="row">
               <div className="col">
               <div className="mb-3">

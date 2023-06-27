@@ -176,20 +176,20 @@
           background-color: rgb(59, 255, 59);
           padding: 10px;
           font-size: 15px;
-          margin-left:85%;
+          margin-left:89%;
           color: black;
           border: black;
           cursor: pointer;
           }
           .gridTable {
-            width: 100%;
+            width: 99%;
             border-collapse: collapse;
           }
           
           .gridTable th,
           .gridTable td {
             padding: 8px;
-            text-align: left;
+            text-align: center  ;
           }
           
           .gridTable th {
