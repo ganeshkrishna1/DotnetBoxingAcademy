@@ -90,7 +90,7 @@ function Enrollcourse() {
                   <h4>Course Available timings : {val.coursetimings}  </h4>
                   <h4>Number of students : {val.numberofstudents}  </h4>
                   <h4>Course Description : {val.coursedescription}  </h4>
-                  <Link to={`/enrollform/`+val.id} id="editCourse" class="enrollCourse" type="button">Enroll course</Link>
+                  <Link to={`/enrollform/`+val.id} id="enrollCourse" class="enrollCourse" type="button">Enroll course</Link>
                 </div>
               );
             })

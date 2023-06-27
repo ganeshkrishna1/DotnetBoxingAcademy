@@ -18,16 +18,22 @@ function Login() {
   const handleSubmit = (event) => {
     event.preventDefault();
     setError(LoginAuth(values));
-    
+
     if (errors.email === '' && errors.password === '') {
       axios
         .post('http://localhost:8081/login', values)
         .then((res) => {
           if (res.data.Status === 'Success') {
             if (values.email === 'admin' && values.password === 'admin') {
+              // Store session details
+              sessionStorage.setItem('userType', 'admin');
+              sessionStorage.setItem('isLoggedIn', 'true');
               // Navigate to admin page
               navigate('/academy');
             } else {
+              // Store session details
+              sessionStorage.setItem('userType', 'user');
+              sessionStorage.setItem('isLoggedIn', 'true');
               // Navigate to user page
               navigate('/viewacademy');
             }
@@ -97,4 +103,4 @@ function Login() {
   );
 }
 
-export default Login;   
+export default Login;

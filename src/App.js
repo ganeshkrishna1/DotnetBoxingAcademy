@@ -17,6 +17,7 @@ import Enrollform from "./components/Customer/Enroll/Enrollform";
 import Enrolledcourse from "./components/Customer/Enroll/Enrolledcourse";
 import Editstudent from "./components/Admin/Students/Editstudent";
 import Addstudent from "./components/Admin/Students/Addstudent";
+import AuthRoute from "./components/Auth/Authroute";
 function App() {
   return (
     <BrowserRouter>
@@ -35,8 +36,9 @@ function App() {
           <Route path='/editacademy/:id' element={<Editacademy />}></Route>
           <Route path='/editcourse/:id' element={<Editcourse />}></Route>
           <Route path='/enrolledcourse' element={<Enrolledcourse />}></Route>
-          <Route path='/addstudent' element={<Addstudent />}></Route>
+          <Route path='/addcourse' element={<Addcourse />}></Route>
           <Route path='/editstudent/:id' element={<Editstudent />}></Route>
+          <Route path='/addstudent' element={<Addstudent />}></Route>
 
       </Routes>
     </BrowserRouter>

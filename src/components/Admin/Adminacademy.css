@@ -118,30 +118,34 @@
 .templateContainer .template_Container .template {
   background-color: white;
   margin: 30px;
-  padding: 0px 20px;
+  padding: 0px 10px;
+  height: 400px;
   flex-basis: calc(3% - 60px); /* Adjust the width as needed */
+  border-radius: 6%;
 }
 .templateContainer .template_Container .template img{
   height: 250px;
- 
+  padding: 10px 0px;
+  border-radius: 6%;
 }
 .templateContainer .template_Container .template .deleteButton {
-  background-color: red;
   padding: 10px;
+  background-color: white;
   font-size: 15px;
-  color: white;
+  color: black;
   border: black;
   margin-right:5%;
-  margin-left:60%;
+  margin-left:70%;
   cursor: pointer;
   }
   .templateContainer .template_Container .template .editButton {
-    background-color: green;
     padding: 10px;
     font-size: 15px;
-    color: white;
+    color: black;
+    background-color: white;
     border: black;
     cursor: pointer;
+    margin-bottom: 15%;
     }
     
     .templateContainer .template_Container .template1 {
@@ -151,28 +155,28 @@
       flex-basis: calc(60% - 60px); /* Adjust the width as needed */
     }
     #deleteCourse{
-      background-color: red;
+      background-color: white;
       padding: 10px;
       font-size: 15px;
-      color: white;
+      color: black;
       border: black;
-      margin-right:5%;
-      margin-left:85%;
+      margin-left:90%;
       cursor: pointer;
       }
       #editCourse {
-        background-color: green;
+        background-color: white;
         padding: 10px;
         font-size: 15px;
-        color: white;
+        color: black;
         border: black;
         cursor: pointer;
+        margin-left:1%;
         }
         #enrollCourse {
           background-color: rgb(59, 255, 59);
           padding: 10px;
           font-size: 15px;
-          margin-left:90%;
+          margin-left:85%;
           color: black;
           border: black;
           cursor: pointer;
@@ -201,19 +205,18 @@
             background-color: #ffffff;
           }
           #adminDeleteStudent{
-            background-color: red;
+            background-color: transparent;
             padding: 10px;
             font-size: 15px;
-            color: white;
+            color: black;
             border: black;
             margin-right:5%;
             cursor: pointer;
             }
             #adminEditStudent {
-              background-color: green;
               padding: 10px;
               font-size: 15px;
-              color: white;
+              color: black;
               margin-right: 2%;
               border: black;
               cursor: pointer;

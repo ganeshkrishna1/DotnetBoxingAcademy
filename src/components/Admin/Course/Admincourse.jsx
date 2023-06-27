@@ -2,6 +2,8 @@ import React, { useEffect,useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import axios from "axios";
 import "../Adminacademy.css";
+import { FaEdit, FaTrash } from 'react-icons/fa';
+
 function Admincourse() {
   const [originalData, setOriginalData] = useState([]);
   const [data, setFilteredData] = useState([]);
@@ -92,8 +94,8 @@ function Admincourse() {
                   <h4>Number of students : {val.numberofstudents}  </h4>
                   <h4>Course Description : {val.coursedescription}  </h4>
 
-                  <button onClick={e => handleDelete(val.id)} id="deleteCourse" class="deleteCourse" type="button">Delete</button>
-                  <Link to={`/editcourse/`+val.id} id="editCourse" class="editCourse" type="button">Edit</Link>
+                  <button onClick={e => handleDelete(val.id)} id="deleteCourse" class="deleteCourse" type="button"><FaTrash/></button>
+                  <Link to={`/editcourse/`+val.id} id="editCourse" class="editCourse" type="button"><FaEdit/></Link>
                 </div>
               );
             })

@@ -2,6 +2,7 @@ import React, { useEffect,useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import axios from "axios";
 import "../Adminacademy.css";
+import { FaEdit, FaTrash } from 'react-icons/fa';
 function Adminacademy() {
   const [data,setData]=useState([])
   const [searchQuery, setSearchQuery] = useState('');
@@ -88,8 +89,8 @@ function Adminacademy() {
                   <img src={val.imageUrl} alt="" />
                   <h3>{val.academyName}</h3>
                   <p className="place">Place: {val.academyLocation} </p>
-                  <button onClick={e => handleDelete(val.id)} id="deleteAcademy" class="deleteButton" type="button">Delete</button>
-                  <Link to={`/editacademy/`+val.id} id="editAcademy" class="editButton" type="button">Edit</Link>
+                  <button onClick={e => handleDelete(val.id)} id="deleteAcademy" class="deleteButton" type="button"><FaTrash /></button>
+                  <Link to={`/editacademy/`+val.id} id="editAcademy" class="editButton" type="button"><FaEdit /></Link>
                 </div>
               );
             })

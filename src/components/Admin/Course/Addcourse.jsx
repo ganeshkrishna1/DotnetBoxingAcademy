@@ -54,6 +54,9 @@ function Addcourse(){
          <div className='d-flex justify-content-center align-items-center vh-100 addpage'>
             <div className='p-1 rounded w-25 border addform'>
 			<form onSubmit={handleSubmit}>
+        <div>
+          <h2>Add Course</h2><br></br>
+        </div>
 			<div className="mb-3">
 					<input type="text" className="form-control" id="courseName" name="coursename" placeholder='Enter the course name' autoComplete='off'
 					onChange={handleInput}/>

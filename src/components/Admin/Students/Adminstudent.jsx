@@ -2,6 +2,7 @@ import React, { useEffect,useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import axios from "axios";
 import "../Adminacademy.css";
+import { FaEdit, FaTrash } from 'react-icons/fa';
 function Adminstudent() {
     const [originalData, setOriginalData] = useState([]);
     const [data, setFilteredData] = useState([]);
@@ -108,8 +109,8 @@ function Adminstudent() {
             <td>{val.coursename}</td>
             <td>{val.phoneNumber1}</td>
             <td>
-              <Link to={`/editstudent/${val.id}`} id="adminEditStudent">Edit</Link>
-              <button id= "adminDeleteStudent" onClick={() => handleDelete(val.id)}>Delete</button>
+              <Link to={`/editstudent/${val.id}`} id="adminEditStudent"><FaEdit/></Link>
+              <button id= "adminDeleteStudent" onClick={() => handleDelete(val.id)}><FaTrash/></button>
             </td>
           </tr>
         ))}
@@ -119,6 +120,7 @@ function Adminstudent() {
     <p>No results found.</p>
   )}
 </div>
+<br></br>
       <center>
       <Link to='/addstudent' type='button' id='addStudent' className="btn btn-success w-10">
       ⊕Add Student
