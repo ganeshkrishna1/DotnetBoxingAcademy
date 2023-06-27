@@ -1,6 +1,7 @@
 import React, { useEffect,useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 function Enrolledcourse() {
   const [data,setData]=useState([])
   useEffect(()=>{
@@ -15,7 +16,18 @@ function Enrolledcourse() {
       })
       .catch(err=>console.log(err));
   },[])
-
+  const navigate = useNavigate();
+  useEffect(() => {
+		const isAuthenticated = localStorage.getItem('authenticatedUser');
+		if (isAuthenticated !== 'true') {
+		  navigate('/login');
+		}
+	  }, []);
+    function HandleLogout(){
+      navigate('/login');
+      localStorage.removeItem('authenticatedUser');
+      localStorage.removeItem('authenticatedAdmin');
+    }
 
   return (
     <>
@@ -47,7 +59,7 @@ function Enrolledcourse() {
                 </li>
               </ul> 
               <Link to="/login">
-                <a className="logout" id='logout'>Logout</a>    
+                <a className="logout" id='logout' onClick={HandleLogout}>Logout</a>    
               </Link>
             </div>                
           </div>

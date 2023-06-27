@@ -18,27 +18,34 @@ function Login() {
   const handleSubmit = (event) => {
     event.preventDefault();
     setError(LoginAuth(values));
-
+  
     if (errors.email === '' && errors.password === '') {
       axios
         .post('http://localhost:8081/login', values)
         .then((res) => {
           if (res.data.Status === 'Success') {
+            const userId = res.data.id; // Assuming the server provides the user ID in the response
+  
             if (values.email === 'admin' && values.password === 'admin') {
-              // Store session details
-              sessionStorage.setItem('userType', 'admin');
-              sessionStorage.setItem('isLoggedIn', 'true');
-              // Navigate to admin page
-              navigate('/academy');
+              localStorage.setItem('authenticatedUser', false);
+              localStorage.setItem('authenticatedAdmin', true);
             } else {
-              // Store session details
-              sessionStorage.setItem('userType', 'user');
-              sessionStorage.setItem('isLoggedIn', 'true');
-              // Navigate to user page
-              navigate('/viewacademy');
+              localStorage.setItem('authenticatedUser', true);
+              localStorage.setItem('authenticatedAdmin', false);
+              localStorage.setItem('loggedInUserId', userId); 
+            }
+            if (res.data.Status === 'Success') {
+              if (values.email === 'admin' && values.password === 'admin') {
+                navigate('/academy');
+              } else {
+                navigate('/viewacademy');
+              }
+            } else {
+              navigate('/Signup');
+              alert('Invalid Credentials Please Register');
             }
           } else {
-            navigate('/signup');
+            navigate('/Signup');
             alert('Invalid Credentials Please Register');
           }
         })

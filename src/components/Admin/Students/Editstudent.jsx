@@ -24,12 +24,23 @@ function Editstudent() {
 
   });
 
-  const navigate = useNavigate();
 
   const {id} = useParams();
   function handleInput(event) {
       setValues(prev => ({ ...prev, [event.target.name]: [event.target.value] }));
   }
+  const navigate = useNavigate();
+  useEffect(() => {
+		const isAuthenticated = localStorage.getItem('authenticatedAdmin');
+		if (isAuthenticated !== 'true') {
+		  navigate('/login');
+		}
+	  }, []);
+    function HandleLogout(){
+      navigate('/login');
+      localStorage.removeItem('authenticatedUser');
+      localStorage.removeItem('authenticatedAdmin');
+    }
 
   useEffect(()=> {
       axios.get('http://localhost:8081/getstudents/'+id)
@@ -87,7 +98,7 @@ function Editstudent() {
                 </li>
               </ul>
               <Link to="/login">
-                <a className="logout" id='logout'>Logout</a>    
+                <a className="logout" id='logout' onClick={HandleLogout}>Logout</a>    
               </Link>
             </div>                
           </div>

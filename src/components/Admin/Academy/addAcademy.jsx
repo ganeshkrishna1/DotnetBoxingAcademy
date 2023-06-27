@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useEffect,useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { Link, Outlet } from 'react-router-dom'
 function Addacademy() {
@@ -12,12 +12,16 @@ function Addacademy() {
     academyDescription:''
 	})
 
-    const navigate = useNavigate();
-
 	const handleInput = (event)=> {
         setValues(prev => ({...prev,[event.target.name]: [event.target.value]}))
     }
-
+    const navigate = useNavigate();
+  useEffect(() => {
+		const isAuthenticated = localStorage.getItem('authenticatedAdmin');
+		if (isAuthenticated !== 'true') {
+		  navigate('/login');
+		}
+	  }, []);
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		axios.post('http://localhost:8081/addacademy', values)
@@ -26,7 +30,11 @@ function Addacademy() {
 		})
 		.catch(err => console.log(err));
     }
-
+	function HandleLogout(){
+        navigate('/login');
+        localStorage.removeItem('authenticatedUser');
+        localStorage.removeItem('authenticatedAdmin');
+      }
     return(
         <div className='body'>
         <div><br/></div>
@@ -46,7 +54,7 @@ function Addacademy() {
                 </li>
               </ul>
               <Link to="/login">
-                <a className="logout" id='logout'>Logout</a>    
+                <a className="logout" id='logout' onClick={HandleLogout}>Logout</a>    
               </Link>
             </div>                
           </div>

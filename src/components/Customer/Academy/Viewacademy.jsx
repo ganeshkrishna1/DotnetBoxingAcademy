@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import axios from "axios";
 import "../Viewacademy.css";
+import { useNavigate } from "react-router-dom";
 
 function Viewacademy() {
   const [originalData, setOriginalData] = useState([]);
@@ -22,6 +23,18 @@ function Viewacademy() {
       })
       .catch((err) => console.log(err));
   }, []);
+  const navigate = useNavigate();
+  useEffect(() => {
+		const isAuthenticated = localStorage.getItem('authenticatedUser');
+		if (isAuthenticated !== 'true') {
+		  navigate('/login');
+		}
+	  }, []);
+    function HandleLogout(){
+      navigate('/login');
+      localStorage.removeItem('authenticatedUser');
+      localStorage.removeItem('authenticatedAdmin');
+    }
 
   const handleSearch = (event) => {
     event.preventDefault();
@@ -63,7 +76,7 @@ function Viewacademy() {
                 </li>
               </ul>
               <Link to="/login">
-                <a className="logout" id="logout">
+                <a className="logout" id="logout" onClick={HandleLogout}>
                   Logout
                 </a>
               </Link>

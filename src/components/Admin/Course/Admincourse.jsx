@@ -3,6 +3,7 @@ import { Link, Outlet } from "react-router-dom";
 import axios from "axios";
 import "../Adminacademy.css";
 import { FaEdit, FaTrash } from 'react-icons/fa';
+import { useNavigate } from "react-router-dom";
 
 function Admincourse() {
   const [originalData, setOriginalData] = useState([]);
@@ -22,7 +23,18 @@ function Admincourse() {
       })
       .catch((err) => console.log(err));
   }, []);
-
+  const navigate = useNavigate();
+  useEffect(() => {
+		const isAuthenticated = localStorage.getItem('authenticatedAdmin');
+		if (isAuthenticated !== 'true') {
+		  navigate('/login');
+		}
+	  }, []);
+    function HandleLogout(){
+      navigate('/login');
+      localStorage.removeItem('authenticatedUser');
+      localStorage.removeItem('authenticatedAdmin');
+    }
   const handleSearch = (event) => {
     event.preventDefault();
     const filteredResults = originalData.filter((item) =>
@@ -62,7 +74,7 @@ function Admincourse() {
                 </li>
               </ul>
               <Link to="/login">
-                <a className="logout" id='logout'>Logout</a>    
+                <a className="logout" id='logout' onClick={HandleLogout}>Logout</a>    
               </Link>
             </div>                
           </div>

@@ -17,7 +17,12 @@ function Editacademy() {
 	function handleInput(event) {
         setValues(prev => ({ ...prev, [event.target.name]: [event.target.value] }));
     }
-
+  useEffect(() => {
+		const isAuthenticated = localStorage.getItem('authenticatedAdmin');
+		if (isAuthenticated !== 'true') {
+		  navigate('/login');
+		}
+	  }, []);
     useEffect(()=> {
 		axios.get('http://localhost:8081/get/'+id)
 		.then(res => {
@@ -42,6 +47,11 @@ function Editacademy() {
 		})
 		.catch(err => console.log(err));
 	}
+	function HandleLogout(){
+        navigate('/login');
+        localStorage.removeItem('authenticatedUser');
+        localStorage.removeItem('authenticatedAdmin');
+      }
     return(
         <div className='body'>
         <div><br/></div>
@@ -61,7 +71,7 @@ function Editacademy() {
                 </li>
               </ul>
               <Link to="/login">
-                <a className="logout" id='logout'>Logout</a>    
+                <a className="logout" id='logout' onClick={HandleLogout}>Logout</a>    
               </Link>
             </div>                
           </div>

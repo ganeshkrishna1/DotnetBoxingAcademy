@@ -17,7 +17,6 @@ import Enrollform from "./components/Customer/Enroll/Enrollform";
 import Enrolledcourse from "./components/Customer/Enroll/Enrolledcourse";
 import Editstudent from "./components/Admin/Students/Editstudent";
 import Addstudent from "./components/Admin/Students/Addstudent";
-import AuthRoute from "./components/Auth/Authroute";
 function App() {
   return (
     <BrowserRouter>

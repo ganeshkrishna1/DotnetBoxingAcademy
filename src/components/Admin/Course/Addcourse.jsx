@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { Link, Outlet } from 'react-router-dom'
 function Addcourse(){
@@ -16,7 +16,12 @@ function Addcourse(){
 	const handleInput = (event)=> {
         setValues(prev => ({...prev,[event.target.name]: [event.target.value]}))
     }
-
+    useEffect(() => {
+      const isAuthenticated = localStorage.getItem('authenticatedAdmin');
+      if (isAuthenticated !== 'true') {
+        navigate('/login');
+      }
+      }, []);
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		axios.post('http://localhost:8081/addcourse', values)
@@ -25,7 +30,11 @@ function Addcourse(){
 		})
 		.catch(err => console.log(err));
     }
-
+    function HandleLogout(){
+      navigate('/login');
+      localStorage.removeItem('authenticatedUser');
+      localStorage.removeItem('authenticatedAdmin');
+    }
     return(
         <div className='body'>
         <div><br/></div>
@@ -45,7 +54,7 @@ function Addcourse(){
                 </li>
               </ul>
               <Link to="/login">
-                <a className="logout" id='logout'>Logout</a>    
+                <a className="logout" id='logout' onClick={HandleLogout}>Logout</a>    
               </Link>
             </div>                
           </div>
