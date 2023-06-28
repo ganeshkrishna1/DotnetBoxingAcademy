@@ -15,41 +15,39 @@ function Login() {
     setValues((prev) => ({ ...prev, [event.target.name]: event.target.value }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    setError(LoginAuth(values));
-  
-    if (errors.email === '' && errors.password === '') {
-      axios
-        .post('http://localhost:8081/login', values)
-        .then((res) => {
-          if (res.data.Status === 'Success') {
-            const userId = res.data.id; // Assuming the server provides the user ID in the response
-  
-            if (values.email === 'admin' && values.password === 'admin') {
-              localStorage.setItem('authenticatedUser', false);
-              localStorage.setItem('authenticatedAdmin', true);
-            } else {
-              localStorage.setItem('authenticatedUser', true);
-              localStorage.setItem('authenticatedAdmin', false);
-              localStorage.setItem('loggedInUserId', userId); 
-            }
-            if (res.data.Status === 'Success') {
-              if (values.email === 'admin' && values.password === 'admin') {
-                navigate('/academy');
-              } else {
-                navigate('/viewacademy');
-              }
-            } else {
-              navigate('/Signup');
-              alert('Invalid Credentials Please Register');
-            }
+
+    const validationErrors = LoginAuth(values);
+    setError(validationErrors);
+
+    if (validationErrors.email === '' && validationErrors.password === '') {
+      try {
+        const res = await axios.post('http://localhost:8081/login', values);
+        if (res.data.Status === 'Success') {
+          const userId = res.data.id; // Assuming the server provides the user ID in the response
+
+          if (values.email === 'admin' && values.password === 'admin') {
+            localStorage.setItem('authenticatedUser', false);
+            localStorage.setItem('authenticatedAdmin', true);
           } else {
-            navigate('/Signup');
-            alert('Invalid Credentials Please Register');
+            localStorage.setItem('authenticatedUser', true);
+            localStorage.setItem('authenticatedAdmin', false);
+            localStorage.setItem('loggedInUserId', userId);
           }
-        })
-        .catch((err) => console.log(err));
+
+          if (values.email === 'admin' && values.password === 'admin') {
+            navigate('/academy');
+          } else {
+            navigate('/viewacademy');
+          }
+        } else {
+          navigate('/Signup');
+          alert('Invalid Credentials Please Register');
+        }
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
