@@ -10,15 +10,16 @@ app.use(cookieParser());
 app.use(express.json());
 
 const con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database:"boxing academy",
+    host: "db4free.net",
+    user: "b2t4ba",
+    password: "password",
+    database:"boxingacademy",
 })
 
 con.connect(function(err) {
     if(err) { 
         console.log("Error in Connection");
+        console.log(err);
     } else {
         console.log("SQL server Connected");
     }
