@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState,useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useParams } from 'react-router-dom';
 import { Link, Outlet } from 'react-router-dom';
 
 function Enrollform() {
@@ -23,6 +23,7 @@ function Enrollform() {
     nationality: '',
 
   });
+  const {id} = useParams();
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -39,6 +40,28 @@ function Enrollform() {
   const handleInput = (event) => {
     setValues((prev) => ({ ...prev, [event.target.name]: event.target.value }));
   };
+  useEffect(() => {
+		axios
+		  .get('http://localhost:8081/getcourse/' + id)
+		  .then(res => {
+			const {
+			  coursename,
+			  courseduration,
+			  coursetimings,
+			  numberofstudents,
+			  coursedescription,
+			} = res.data.Result[0];
+	
+			setValues({
+				coursename,
+				courseduration,
+				coursetimings,
+				numberofstudents,
+				coursedescription,
+			});
+		  })
+		  .catch(err => console.log(err));
+	  }, [id]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -94,6 +117,7 @@ function Enrollform() {
                     className="form-control"
                     id="coursename"
                     name="coursename"
+                    value={values.coursename}
                     placeholder="Enter course name"
                     autoComplete="off"
                     required
