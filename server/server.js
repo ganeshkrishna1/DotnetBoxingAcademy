@@ -10,10 +10,10 @@ app.use(cookieParser());
 app.use(express.json());
 
 const con = mysql.createConnection({
-    host: "db4free.net",
-    user: "b2t4ba",
-    password: "password",
-    database:"boxingacademy",
+    host: "localhost",
+    user: "root",
+    password: "",
+    database:"boxing academy",
 })
 
 con.connect(function(err) {
