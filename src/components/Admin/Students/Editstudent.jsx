@@ -45,27 +45,45 @@ function Editstudent() {
   useEffect(()=> {
       axios.get('http://localhost:8081/getstudents/'+id)
       .then(res => {
-          setValues({...values, coursename: res.values.Result[0].coursename,
-              firstName: res.values.Result[0].firstName,
-              lastName: res.values.Result[0].lastName,
-              gender: res.values.Result[0].gender,
-              fatherName: res.values.Result[0].fatherName,
-              phoneNumber1:res.values.Result[0].phoneNumber1,
-              phoneNumber2: res.values.Result[0].phoneNumber2,
-              motherName: res.values.Result[0].motherName,
-              emailId: res.values.Result[0].emailId,
-              age: res.values.Result[0].age,
-              houseNo: res.values.Result[0].houseNo,
-              streetName: res.values.Result[0].streetName,
-              areaName: res.values.Result[0].areaName,
-              pincode: res.values.Result[0].pincode,
-              state: res.values.Result[0].state,
-              nationality: res.values.Result[0].nationality,
-
+        const {
+          coursename,
+          firstName ,
+          lastName ,
+          gender ,
+          fatherName ,
+          phoneNumber1 ,
+          phoneNumber2 ,
+          motherName ,
+          emailId ,
+          age ,
+          houseNo ,
+          streetName ,
+          areaName ,
+          pincode ,
+          state ,
+          nationality ,
+        } = res.data.Result[0];
+          setValues({
+            coursename,
+            firstName ,
+            lastName ,
+            gender ,
+            fatherName ,
+            phoneNumber1 ,
+            phoneNumber2 ,
+            motherName ,
+            emailId ,
+            age ,
+            houseNo ,
+            streetName ,
+            areaName ,
+            pincode ,
+            state ,
+            nationality ,
           })
       })
       .catch(err =>console.log(err));
-  }, [id,values])
+  }, [id])
 
   const handleSubmit = (event) => {
       event.preventDefault();
@@ -115,6 +133,7 @@ function Editstudent() {
               <div className="mb-3">
                   <input
                     type="text"
+                    value={values.coursename}
                     className="form-control"
                     id="editcoursename"
                     name="coursename"
@@ -127,6 +146,7 @@ function Editstudent() {
                 <div className="mb-3">
                   <input
                     type="text"
+                    value={values.firstName}
                     className="form-control"
                     id="editFirstName"
                     name="firstName"
@@ -139,6 +159,7 @@ function Editstudent() {
                 <div className="mb-3">
                   <input
                     type="text"
+                    value = {values.lastName}
                     className="form-control"
                     id="editLastName"
                     name="lastName"
@@ -151,6 +172,7 @@ function Editstudent() {
                 <div className="mb-3">
                   <input
                     type="text"
+                    value = {values.gender}
                     className="form-control"
                     id="editGender"
                     name="gender"
@@ -163,6 +185,7 @@ function Editstudent() {
                 <div className="mb-3">
                   <input
                     type="text"
+                    value = {values.fatherName}
                     className="form-control"
                     id="editFatherName"
                     name="fatherName"
@@ -175,6 +198,7 @@ function Editstudent() {
                 <div className="mb-3">
                   <input
                     type="text"
+                    value = {values.phoneNumber1}
                     className="form-control"
                     id="editPhoneNumber1"
                     name="phoneNumber1"
@@ -187,6 +211,7 @@ function Editstudent() {
                 <div className="mb-3">
                   <input
                     type="text"
+                    value = {values.phoneNumber2}
                     className="form-control"
                     id="editPhoneNumber2"
                     name="phoneNumber2"
@@ -199,6 +224,7 @@ function Editstudent() {
                 <div className="mb-3">
                   <input
                     type="text"
+                    value = {values.motherName}
                     className="form-control"
                     id="editMotherName"
                     name="motherName"
@@ -211,6 +237,7 @@ function Editstudent() {
                 <div className="mb-3">
                   <input
                     type="text"
+                    value = {values.emailId}
                     className="form-control"
                     id="editEmailId"
                     name="emailId"
@@ -223,6 +250,7 @@ function Editstudent() {
                 <div className="mb-3">
                   <input
                     type="text"
+                    value = {values.age}
                     className="form-control"
                     id="editAge"
                     name="age"
@@ -239,6 +267,7 @@ function Editstudent() {
                   House No:
                   <input
                     type="text"
+                    value = {values.houseNo}
                     className="form-control"
                     id="editHouseNo"
                     name="houseNo"
@@ -252,6 +281,7 @@ function Editstudent() {
                   Street Name:
                   <input
                     type="text"
+                    value = {values.streetName}
                     className="form-control"
                     id="editStreetName"
                     name="streetName"
@@ -265,6 +295,7 @@ function Editstudent() {
                   Area Name:
                   <input
                     type="text"
+                    values = {values.areaName}
                     className="form-control"
                     id="editAreaName"
                     name="areaName"
@@ -277,6 +308,7 @@ function Editstudent() {
                   Pin Code:
                   <input
                     type="text"
+                    value = {values.pincode}
                     className="form-control"
                     id="editPincode"
                     name="pincode"
@@ -290,6 +322,7 @@ function Editstudent() {
                   State:
                   <input
                     type="text"
+                    value = {values.state}
                     className="form-control"
                     id="editState"
                     name="state"
@@ -303,6 +336,7 @@ function Editstudent() {
                   Nationality:
                   <input
                     type="text"
+                    value = {values.nationality}
                     className="form-control"
                     id="editNationality"
                     name="nationality"

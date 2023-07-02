@@ -16,24 +16,51 @@ function Editcourse(){
 	const handleInput = (event)=> {
         setValues(prev => ({...prev,[event.target.name]: [event.target.value]}))
     }
+	// const handleInput = event => {
+	// 	const { name, value } = event.target;
+	// 	setValues(prev => ({ ...prev, [name]: value }));
+	//   };
   useEffect(() => {
 		const isAuthenticated = localStorage.getItem('authenticatedAdmin');
 		if (isAuthenticated !== 'true') {
 		  navigate('/login');
 		}
 	  }, []);
-    useEffect(()=> {
-		axios.get('http://localhost:8081/getcourse/'+id)
-		.then(res => {
-			setValues({...values, coursename: res.values.Result[0].coursename,
-				courseduration: res.values.Result[0].courseduration,
-				coursetimings: res.values.Result[0].coursetimings,
-				numberofstudents: res.values.Result[0].numberofstudents,
-                coursedescription:res.values.Result[0].coursedescription
-			})
-		})
-		.catch(err =>console.log(err));
-	}, [id,values])
+    // useEffect(()=> {
+	// 	axios.get('http://localhost:8081/getcourse/'+id)
+	// 	.then(res => {
+	// 		setValues({...values, coursename: res.data.Result[0].coursename,
+	// 			courseduration: res.data.Result[0].courseduration,
+	// 			coursetimings: res.data.Result[0].coursetimings,
+	// 			numberofstudents: res.data.Result[0].numberofstudents,
+    //             coursedescription:res.data.Result[0].coursedescription
+	// 		})
+	// 	})
+	// 	.catch(err =>console.log(err));
+	// }, [id,values])
+
+	useEffect(() => {
+		axios
+		  .get('http://localhost:8081/getcourse/' + id)
+		  .then(res => {
+			const {
+			  coursename,
+			  courseduration,
+			  coursetimings,
+			  numberofstudents,
+			  coursedescription,
+			} = res.data.Result[0];
+	
+			setValues({
+				coursename,
+				courseduration,
+				coursetimings,
+				numberofstudents,
+				coursedescription,
+			});
+		  })
+		  .catch(err => console.log(err));
+	  }, [id]);
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
@@ -80,23 +107,23 @@ function Editcourse(){
             <div className='p-1 rounded w-25 border addform'>
 			<form onSubmit={handleSubmit}>
 			<div className="mb-3">
-					<input type="text" className="form-control" id="editCourseName" name="coursename" placeholder='Enter the course name' autoComplete='off'
+					<input type="text" value = {values.coursename} className="form-control" id="editCourseName" name="coursename" placeholder='Enter the course name' autoComplete='off'
 					onChange={handleInput}/>
 				</div>
 				<div className="mb-3">
-					<input type="text" className="form-control" id="editCourseDuration" name='courseduration' placeholder='Enter the course duration' autoComplete='off'
+					<input type="text" value = {values.courseduration} className="form-control" id="editCourseDuration" name='courseduration' placeholder='Enter the course duration' autoComplete='off'
 					onChange={handleInput}/>
 				</div>
 				<div className="mb-3">
-					<input type="text" className="form-control" id="editCourseTiming" name='coursetimings' placeholder="Enter the course Timing" autoComplete='off'
+					<input type="text" value = {values.coursetimings} className="form-control" id="editCourseTiming" name='coursetimings' placeholder="Enter the course Timing" autoComplete='off'
 					required onChange={handleInput}/>
 				</div>
 				<div className="mb-3">
-					<input type="text" className="form-control" id="editCourseEnrolled" name='numberofstudents' placeholder="Enter number of students enrolled for the course" autoComplete='off'
+					<input type="text" value = {values.numberofstudents} className="form-control" id="editCourseEnrolled" name='numberofstudents' placeholder="Enter number of students enrolled for the course" autoComplete='off'
 					onChange={handleInput}/>
 				</div>
 				<div className="mb-3">
-                    <textarea className="form-control" id="editCourseDescription" name='coursedescription' rows="3" placeholder="Enter the course description" autoComplete="off"
+                    <textarea value = {values.coursedescription} className="form-control" id="editCourseDescription" name='coursedescription' rows="3" placeholder="Enter the course description" autoComplete="off"
                     onChange={handleInput}></textarea>
 				</div>
 				<div className="mb-3">
