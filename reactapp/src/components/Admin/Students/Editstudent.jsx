@@ -17,7 +17,6 @@ function Editstudent() {
     age: '',
     houseNo: '',
     streetName: '',
-    areaName: '',
     pincode: '',
     state: '',
     nationality: '',
@@ -42,52 +41,41 @@ function Editstudent() {
       localStorage.removeItem('authenticatedAdmin');
     }
 
-  useEffect(()=> {
-      axios.get('http://localhost:8081/getstudents/'+id)
-      .then(res => {
-        const {
-          coursename,
-          firstName ,
-          lastName ,
-          gender ,
-          fatherName ,
-          phoneNumber1 ,
-          phoneNumber2 ,
-          motherName ,
-          emailId ,
-          age ,
-          houseNo ,
-          streetName ,
-          areaName ,
-          pincode ,
-          state ,
-          nationality ,
-        } = res.data.Result[0];
-          setValues({
-            coursename,
-            firstName ,
-            lastName ,
-            gender ,
-            fatherName ,
-            phoneNumber1 ,
-            phoneNumber2 ,
-            motherName ,
-            emailId ,
-            age ,
-            houseNo ,
-            streetName ,
-            areaName ,
-            pincode ,
-            state ,
-            nationality ,
-          })
+    useEffect(() => {
+      axios
+          .get('http://localhost:8080/api/Admin/getstudent/'+id)
+    .then(res => {
+      if (res.data.Status === 'Success') {
+        const student = res.data.Result;
+  
+        setValues({
+        coursename: student.coursename,
+        firstName: student.firstName,
+        lastName: student.lastName,
+        gender: student.gender,
+        fatherName: student.fatherName,
+        phoneNumber1: student.phoneNumber1,
+        phoneNumber2: student.phoneNumber2,
+        motherName:student.motherName,
+        emailId: student.emailId,
+        age: student.age,
+        houseNo: student.houseNo,
+        streetName: student.streetName,
+        pincode: student.pincode,
+        state: student.state,
+        nationality: student.nationality,
+       });
+      }
       })
-      .catch(err =>console.log(err));
-  }, [id])
+      .catch(err => console.log(err));
+  
+    // ...
+    }, [id]);
+  
 
   const handleSubmit = (event) => {
       event.preventDefault();
-      axios.put('http://localhost:8081/updatestudents/'+id, values)
+      axios.put('http://localhost:8080/api/Admin/updatestudent/'+id, values)
       .then(res => {
           if(res.data.Status === "Success") {
               navigate('/adminstudents')
@@ -291,19 +279,7 @@ function Editstudent() {
                     onChange={handleInput}
                   />
                 </div>
-                <div className="mb-3">
-                  Area Name:
-                  <input
-                    type="text"
-                    values = {values.areaName}
-                    className="form-control"
-                    id="editAreaName"
-                    name="areaName"
-                    placeholder=""
-                    autoComplete="off"
-                    onChange={handleInput}
-                  />
-                </div>
+                
                 <div className="mb-3">
                   Pin Code:
                   <input

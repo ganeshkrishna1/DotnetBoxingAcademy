@@ -10,7 +10,7 @@ function Adminstudent() {
     const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(()=>{
-      axios.get('http://localhost:8081/getstudents')
+      axios.get('http://localhost:8080/api/Admin/getstudent')
       .then(res=>{
         if (res.data.Status === "Success") {
             console.log(res.data.Result);
@@ -37,7 +37,7 @@ function Adminstudent() {
         setFilteredData(filteredResults);
       };
   const handleDelete = (id) => {
-    axios.delete('http://localhost:8081/deletestudents/'+id)
+    axios.delete('http://localhost:8080/api/Admin/deletestudent/'+id)
     .then(res => {
       if(res.data.Status === "Success") {
         window.location.reload(true);

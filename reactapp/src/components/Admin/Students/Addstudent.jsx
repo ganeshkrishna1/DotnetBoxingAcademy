@@ -1,11 +1,10 @@
 import axios from 'axios';
-import React, { useState,useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Link, Outlet } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, Link, Outlet } from 'react-router-dom';
 
-function Addstudent() {
+function AddStudent() {
   const [values, setValues] = useState({
-    coursename:'',
+    coursename: '',
     firstName: '',
     lastName: '',
     gender: '',
@@ -17,77 +16,94 @@ function Addstudent() {
     age: '',
     houseNo: '',
     streetName: '',
-    areaName: '',
     pincode: '',
     state: '',
     nationality: '',
-
   });
 
   const navigate = useNavigate();
+
   useEffect(() => {
-		const isAuthenticated = localStorage.getItem('authenticatedAdmin');
-		if (isAuthenticated !== 'true') {
-		  navigate('/login');
-		}
-	  }, []);
-  const handleInput = (event) => {
+    const isAuthenticated = localStorage.getItem('authenticatedAdmin');
+    if (isAuthenticated !== 'true') {
+      navigate('/login');
+    }
+  }, []);
+
+  const handleChange = (event) => {
     setValues((prev) => ({ ...prev, [event.target.name]: event.target.value }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    axios
-      .post('http://localhost:8081/enrollform', values)
-      .then((res) => {
-        navigate('/enrolledcourse');
-      })
-      .catch((err) => console.log(err));
+    try {
+      const response = await axios.post('http://localhost:8080/api/Admin/addstudent', values);
+      if (response.status === 200) {
+        navigate('/adminstudents');
+      } else {
+        console.log('Unexpected response:', response);
+      }
+    } catch (error) {
+      const { data } = error.response;
+      console.log(data.errors); // Access specific validation errors
+      console.log(data.title);    }
   };
-  function HandleLogout(){
+
+  const handleLogout = () => {
     navigate('/login');
     localStorage.removeItem('authenticatedUser');
     localStorage.removeItem('authenticatedAdmin');
-  }
+  };
+
   return (
     <div className="body">
       <div>
         <br />
       </div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light mx-auto">
-          <div className="container-fluid">
-            <a className="navbar-brand">Boxing academy</a>
-            <div className="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul className="navbar-nav mx-auto">
-                <li className="nav-item">
-                  <Link to="/academy" className="nav-link active" id='adminAcademy' aria-current="page">Academy</Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/Admincourse" className="nav-link" id='adminCourse'>Course</Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/Adminstudents" className="nav-link" id='adminStudents'>Students</Link>
-                </li>
-              </ul>
-              <Link to="/login">
-                <a className="logout" id='logout' onClick={HandleLogout}>Logout</a>    
-              </Link>
-            </div>                
+        <div className="container-fluid">
+          <Link to="/" className="navbar-brand">
+            Boxing academy
+          </Link>
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav mx-auto">
+              <li className="nav-item">
+                <Link to="/academy" className="nav-link active" id="adminAcademy" aria-current="page">
+                  Academy
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/Admincourse" className="nav-link" id="adminCourse">
+                  Course
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/Adminstudents" className="nav-link" id="adminStudents">
+                  Students
+                </Link>
+              </li>
+            </ul>
+            <Link to="/login" className="logout" id="logout" onClick={handleLogout}>
+              Logout
+            </Link>
           </div>
-          <Outlet />
-        </nav>
-      <br></br>
-      <br></br>
-      <br></br><br></br>
+        </div>
+        <Outlet />
+      </nav>
+      <br />
+      <br />
+      <br />
+      <br />
       <div className="d-flex justify-content-center align-items-center addpage">
         <div className="p-1 rounded w-50 border addform">
           <form onSubmit={handleSubmit}>
-          <center>
-          <h2>Add Student</h2><br></br>
-        </center>
+            <center>
+              <h2>Add Student</h2>
+              <br />
+            </center>
             <div className="row">
               <div className="col">
-              <div className="mb-3">
+                <div className="mb-3">
                   <input
                     type="text"
                     className="form-control"
@@ -96,7 +112,7 @@ function Addstudent() {
                     placeholder="Enter course name"
                     autoComplete="off"
                     required
-                    onChange={handleInput}
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="mb-3">
@@ -108,7 +124,7 @@ function Addstudent() {
                     placeholder="Enter your first name"
                     autoComplete="off"
                     required
-                    onChange={handleInput}
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="mb-3">
@@ -120,7 +136,7 @@ function Addstudent() {
                     placeholder="Enter your last name"
                     autoComplete="off"
                     required
-                    onChange={handleInput}
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="mb-3">
@@ -132,7 +148,7 @@ function Addstudent() {
                     placeholder="Enter male or female"
                     autoComplete="off"
                     required
-                    onChange={handleInput}
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="mb-3">
@@ -144,7 +160,7 @@ function Addstudent() {
                     placeholder="Enter your father's name"
                     autoComplete="off"
                     required
-                    onChange={handleInput}
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="mb-3">
@@ -156,7 +172,7 @@ function Addstudent() {
                     placeholder="Enter phone number"
                     autoComplete="off"
                     required
-                    onChange={handleInput}
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="mb-3">
@@ -168,7 +184,7 @@ function Addstudent() {
                     placeholder="Enter alternate number"
                     autoComplete="off"
                     required
-                    onChange={handleInput}
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="mb-3">
@@ -180,7 +196,7 @@ function Addstudent() {
                     placeholder="Enter your mother's name"
                     autoComplete="off"
                     required
-                    onChange={handleInput}
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="mb-3">
@@ -192,7 +208,7 @@ function Addstudent() {
                     placeholder="Enter email Id"
                     autoComplete="off"
                     required
-                    onChange={handleInput}
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="mb-3">
@@ -204,7 +220,7 @@ function Addstudent() {
                     placeholder="Enter your age"
                     autoComplete="off"
                     required
-                    onChange={handleInput}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
@@ -220,7 +236,7 @@ function Addstudent() {
                     placeholder=""
                     autoComplete="off"
                     required
-                    onChange={handleInput}
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="mb-3">
@@ -233,24 +249,12 @@ function Addstudent() {
                     placeholder=""
                     autoComplete="off"
                     required
-                    onChange={handleInput}
-                  />
-                </div>
-                <div className="mb-3">
-                  Area Name:
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="areaName"
-                    name="areaName"
-                    placeholder=""
-                    autoComplete="off"
-                    onChange={handleInput}
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="mb-3">
                   Pin Code:
-                  <input
+                <input
                     type="text"
                     className="form-control"
                     id="pincode"
@@ -258,7 +262,7 @@ function Addstudent() {
                     placeholder=""
                     autoComplete="off"
                     required
-                    onChange={handleInput}
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="mb-3">
@@ -271,7 +275,7 @@ function Addstudent() {
                     placeholder=""
                     autoComplete="off"
                     required
-                    onChange={handleInput}
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="mb-3">
@@ -284,16 +288,16 @@ function Addstudent() {
                     placeholder=""
                     autoComplete="off"
                     required
-                    onChange={handleInput}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
             </div>
             <div className="mb-3">
               <center>
-              <button type="submit" id="enrollNowButton" className="btn btn-success ">
-                Enroll now
-              </button>
+                <button type="submit" id="enrollNowButton" className="btn btn-success">
+                  Enroll now
+                </button>
               </center>
             </div>
           </form>
@@ -303,4 +307,4 @@ function Addstudent() {
   );
 }
 
-export default Addstudent;
+export default AddStudent;

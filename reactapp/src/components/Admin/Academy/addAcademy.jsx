@@ -104,7 +104,7 @@ function Addacademy() {
             </div>
             <div className="mb-3">
               <input
-                type="text"
+                type="url"
                 className="form-control"
                 id="imageUrl"
                 name="imageUrl"
