@@ -38,12 +38,11 @@ if (values.email === 'admin' && values.password === 'admin') {
           } else {
             navigate('/viewacademy');
           }
-        } else {
-          setError({ ...validationErrors, password: 'Invalid credentials. Please try again.' });
-          navigate('/signup');
-        }
+        } 
       } catch (err) {
         console.log(err);
+        alert("Invalid user click ok to register");
+        navigate('/signup');
       }
     }
   };

@@ -17,7 +17,6 @@ function Enrollform() {
     age: '',
     houseNo: '',
     streetName: '',
-    areaName: '',
     pincode: '',
     state: '',
     nationality: '',
@@ -41,32 +40,30 @@ function Enrollform() {
     setValues((prev) => ({ ...prev, [event.target.name]: event.target.value }));
   };
   useEffect(() => {
-		axios
-		  .get('http://localhost:8081/getcourse/' + id)
-		  .then(res => {
-			const {
-			  coursename,
-			  courseduration,
-			  coursetimings,
-			  numberofstudents,
-			  coursedescription,
-			} = res.data.Result[0];
-	
-			setValues({
-				coursename,
-				courseduration,
-				coursetimings,
-				numberofstudents,
-				coursedescription,
-			});
-		  })
-		  .catch(err => console.log(err));
-	  }, [id]);
+    axios
+        .get('http://localhost:8080/api/Admin/getcourse/'+id)
+  .then(res => {
+    if (res.data.Status === 'Success') {
+      const course = res.data.Result;
+
+      setValues({
+      coursename: course.coursename,
+      courseduration: course.courseduration,
+      coursetimings: course.coursetimings,
+      numberofstudents: course.numberofstudents,
+      coursedescription: course.coursedescription,
+      });
+    }
+    })
+    .catch(err => console.log(err));
+
+  // ...
+  }, [id]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
-      .post('http://localhost:8081/enrollform', values)
+      .post('http://localhost:8080/api/User/enrollcourse', values)
       .then((res) => {
         navigate('/enrolledcourse');
       })
@@ -261,18 +258,7 @@ function Enrollform() {
                     onChange={handleInput}
                   />
                 </div>
-                <div className="mb-3">
-                  Area Name:
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="areaName"
-                    name="areaName"
-                    placeholder=""
-                    autoComplete="off"
-                    onChange={handleInput}
-                  />
-                </div>
+        
                 <div className="mb-3">
                   Pin Code:
                   <input

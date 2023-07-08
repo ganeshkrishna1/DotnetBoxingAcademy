@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 function Enrolledcourse() {
   const [data,setData]=useState([])
   useEffect(()=>{
-      axios.get('http://localhost:8081/enrolledcourse')
+      axios.get('http://localhost:8080/api/Admin/getstudent')
       .then(res=>{
         if(res.data.Status==="Success"){
           console.log(res.data.Result)

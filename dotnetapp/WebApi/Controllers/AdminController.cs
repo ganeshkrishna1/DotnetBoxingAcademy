@@ -485,7 +485,6 @@ public IActionResult DeleteStudent(int id)
     }
 }
 
-
          [HttpGet("getstudent/{id}")]
         public IActionResult GetStudentById(int id)
         {
@@ -537,6 +536,57 @@ public IActionResult DeleteStudent(int id)
                 return StatusCode(500, new { Status = "Error", Message = ex.Message });
             }
         }
+        [HttpPut("updatestudent/{id}")]
+public IActionResult UpdateStudent(int id, [FromBody] StudentModel updatedStudent)
+{
+    try
+    {
+        string query = "UPDATE student SET coursename = @coursename, firstName = @firstName, lastName = @lastName, " +
+                       "gender = @gender, fatherName = @fatherName, phoneNumber1 = @phoneNumber1, phoneNumber2 = @phoneNumber2, " +
+                       "motherName = @motherName, emailId = @emailId, age = @age, houseNo = @houseNo, " +
+                       "streetName = @streetName, pincode = @pincode, state = @state, nationality = @nationality " +
+                       "WHERE id = @id";
+
+        using (SqlCommand command = new SqlCommand(query, _connection))
+        {
+            command.Parameters.AddWithValue("@id", id);
+            command.Parameters.AddWithValue("@coursename", updatedStudent.coursename);
+            command.Parameters.AddWithValue("@firstName", updatedStudent.firstName);
+            command.Parameters.AddWithValue("@lastName", updatedStudent.lastName);
+            command.Parameters.AddWithValue("@gender", updatedStudent.gender);
+            command.Parameters.AddWithValue("@fatherName", updatedStudent.fatherName);
+            command.Parameters.AddWithValue("@phoneNumber1", updatedStudent.phoneNumber1);
+            command.Parameters.AddWithValue("@phoneNumber2", updatedStudent.phoneNumber2);
+            command.Parameters.AddWithValue("@motherName", updatedStudent.motherName);
+            command.Parameters.AddWithValue("@emailId", updatedStudent.emailId);
+            command.Parameters.AddWithValue("@age", updatedStudent.age);
+            command.Parameters.AddWithValue("@houseNo", updatedStudent.houseNo);
+            command.Parameters.AddWithValue("@streetName", updatedStudent.streetName);
+            command.Parameters.AddWithValue("@pincode", updatedStudent.pincode);
+            command.Parameters.AddWithValue("@state", updatedStudent.state);
+            command.Parameters.AddWithValue("@nationality", updatedStudent.nationality);
+
+            _connection.Open();
+            int rowsAffected = command.ExecuteNonQuery();
+            _connection.Close();
+
+            if (rowsAffected > 0)
+            {
+                return Ok(new { Status = "Success", Message = "Student updated successfully" });
+            }
+            else
+            {
+                return NotFound(new { Status = "Error", Message = "Student not found" });
+            }
+        }
+    }
+    catch (SqlException ex)
+    {
+        return StatusCode(500, new { Status = "Error", Message = ex.Message });
+    }
+}
+
+        
     }
 }
 

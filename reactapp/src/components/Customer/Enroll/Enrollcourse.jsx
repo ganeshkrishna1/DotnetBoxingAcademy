@@ -7,7 +7,7 @@ function Enrollcourse() {
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(()=>{
-      axios.get('http://localhost:8081/getcourses')
+      axios.get('http://localhost:8080/api/Admin/getcourse')
       .then(res=>{
         if(res.data.Status==="Success"){
           console.log(res.data.Result)
