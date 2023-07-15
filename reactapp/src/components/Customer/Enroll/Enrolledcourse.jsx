@@ -72,13 +72,11 @@ function Enrolledcourse() {
         <div className="template_ContainerEnroll">
           {data.length > 0 ? (
             data.map((val) => {
-              const joinedDate = new Date(val.date).toLocaleDateString("en-GB");
-              const courseEndDate = new Date(val.endDate).toLocaleDateString("en-GB");
               return (
                 <div className="template1" key={val.id} id="enrolledCourse">
                   <h4>Course name : {val.coursename}  </h4>
-                  <h4>Joined date : {joinedDate}  </h4>
-                  <h4>Course end date : 25/12/2023  </h4>
+                  <h4>Joined date : 16/07/2023  </h4>
+                  <h4>Course end date : 31/12/2023  </h4>
                   <button id="enrolledCourse" class="enrolledCourse" type="button">My learning</button>
                 </div>
               );
