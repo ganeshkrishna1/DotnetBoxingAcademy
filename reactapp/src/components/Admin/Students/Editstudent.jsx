@@ -119,6 +119,7 @@ function Editstudent() {
             <div className="row">
               <div className="col">
               <div className="mb-3">
+                Course Name :
                   <input
                     type="text"
                     value={values.coursename}
@@ -132,6 +133,7 @@ function Editstudent() {
                   />
                 </div>
                 <div className="mb-3">
+                First Name :
                   <input
                     type="text"
                     value={values.firstName}
@@ -145,6 +147,7 @@ function Editstudent() {
                   />
                 </div>
                 <div className="mb-3">
+                  Last Name :
                   <input
                     type="text"
                     value = {values.lastName}
@@ -158,6 +161,7 @@ function Editstudent() {
                   />
                 </div>
                 <div className="mb-3">
+                  Gender :
                   <input
                     type="text"
                     value = {values.gender}
@@ -171,6 +175,7 @@ function Editstudent() {
                   />
                 </div>
                 <div className="mb-3">
+                  Father Name :
                   <input
                     type="text"
                     value = {values.fatherName}
@@ -184,6 +189,7 @@ function Editstudent() {
                   />
                 </div>
                 <div className="mb-3">
+                  Phone Number :
                   <input
                     type="text"
                     value = {values.phoneNumber1}
@@ -197,6 +203,7 @@ function Editstudent() {
                   />
                 </div>
                 <div className="mb-3">
+                  Alternate Number :
                   <input
                     type="text"
                     value = {values.phoneNumber2}
@@ -210,6 +217,7 @@ function Editstudent() {
                   />
                 </div>
                 <div className="mb-3">
+                  Mother Name
                   <input
                     type="text"
                     value = {values.motherName}
@@ -223,6 +231,7 @@ function Editstudent() {
                   />
                 </div>
                 <div className="mb-3">
+                  Email Id :
                   <input
                     type="text"
                     value = {values.emailId}
@@ -236,6 +245,7 @@ function Editstudent() {
                   />
                 </div>
                 <div className="mb-3">
+                  Age :
                   <input
                     type="text"
                     value = {values.age}
